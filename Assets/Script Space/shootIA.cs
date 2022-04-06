@@ -28,25 +28,26 @@ public class shootIA : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (cooldownShoot > 0f && !shootsCountTrigger)
+        if (!hordersEnemies.horders.inCutscene)
         {
-            cooldownShoot -= Time.fixedDeltaTime;
-            shootsCountTrigger = true;
-        }
+            if (cooldownShoot > 0f && !shootsCountTrigger)
+            {
+                cooldownShoot -= Time.fixedDeltaTime;
+                shootsCountTrigger = true;
+            }
 
-        if (timeShoot >= shootTime)
-        {
-            Shoot();
-            timeShoot = 0f;
-            shootTime = 0.5f + Random.value;
-        }
-        else
-        {
-            float horderCount = hordersEnemies.horders.HorderNumber();
-            horderCount -= 1f;
-            float multSpd = 1f + (horderCount / (horderCount + 10f));
+            if (timeShoot >= shootTime)
+            {
+                Shoot();
+                timeShoot = 0f;
+                shootTime = 0.5f + Random.value;
+            }
+            else
+            {
+                float multSpd = hordersEnemies.horders.DifcultValue();
 
-            timeShoot += Time.fixedDeltaTime * ofterShoot * multSpd;
+                timeShoot += Time.fixedDeltaTime * ofterShoot * multSpd;
+            }
         }
     }
 
@@ -66,16 +67,16 @@ public class shootIA : MonoBehaviour
             {
                 numbersShootMax += 3;
             }
-            else if(horderCount >= 6)
+            else if (horderCount >= 6)
             {
                 numbersShootMax += 2;
             }
-            else if(horderCount >= 3)
+            else if (horderCount >= 3)
             {
                 numbersShootMax += 1;
             }
 
-            Vector2 posOrg = transformShootsExit[0].transform.position + Vector3.down * 0.5f;
+            Vector2 posOrg = transformShootsExit[0].transform.position + Vector3.down;
             RaycastHit2D hit2D = Physics2D.CircleCast(posOrg, 0.5f, Vector2.down, 20f, layerObst);
 
             if (!hit2D.collider)

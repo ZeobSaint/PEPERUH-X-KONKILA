@@ -25,7 +25,7 @@ public class audioSourseRepository : MonoBehaviour
     {
         AudioSource adX = audioSourcesList.Find(x => !x.isPlaying);
 
-        if (adX)
+        if (!adX)
         {
             for(int i = 0; i < 32; i++)
             {
@@ -36,6 +36,7 @@ public class audioSourseRepository : MonoBehaviour
             }
         }
 
+        adX.pitch = 1f;
         adX.loop = false;
         adX.volume = 1f;
 

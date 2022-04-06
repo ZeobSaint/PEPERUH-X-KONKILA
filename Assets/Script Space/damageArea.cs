@@ -10,7 +10,7 @@ public class damageArea : MonoBehaviour
         bool hit = true;
         lifesScript lifes = collision.gameObject.GetComponent<lifesScript>();
 
-        if (CompareTag(collision.tag))
+        if (CompareTag(collision.tag) || hordersEnemies.horders.inCutscene)
         {
             hit = false;
         }

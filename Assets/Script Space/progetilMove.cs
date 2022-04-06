@@ -22,9 +22,7 @@ public class progetilMove : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        float horderCount = hordersEnemies.horders.HorderNumber();
-        horderCount -= 1f;
-        float multSpd = 1f + 2f*(horderCount / (horderCount + 10f));
+        float multSpd = hordersEnemies.horders.DifcultValue();
 
         if(rigidbody.velocity != direGo * speed*multSpd)
         {

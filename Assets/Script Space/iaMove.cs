@@ -2,12 +2,16 @@ using UnityEngine;
 
 public class iaMove : MonoBehaviour
 {
+    public static float multSpd = 1f;
     private static float posXMin = -8f, posXMax = 8f;
     [Min(0f)]
     public float speed = 2f, moveY = 1f;
     private Rigidbody2D rigidbody;
     private float posYGo;
     private bool rightMove = true, moveVertical = false;
+    public bool initialRightMove = true;
+    [HideInInspector]
+    public bool dontMoveHorizontal = false;
 
     // Start is called before the first frame update
     void Awake()
@@ -17,13 +21,26 @@ public class iaMove : MonoBehaviour
 
     private void OnEnable()
     {
-        rightMove = true;
-        moveVertical = false;
+        rightMove = initialRightMove;
+        moveVertical = true;
+        dontMoveHorizontal = true;
+        posYGo = transform.position.y - 6f;
+    }
+
+    public bool IsStoped()
+    {
+        //Debug.Log(rigidbody.velocity.sqrMagnitude);
+        return rigidbody.velocity.sqrMagnitude == 0f;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (!hordersEnemies.horders.inCutscene)
+        {
+            dontMoveHorizontal = false;
+        }
+
         Vector2 posNow = transform.position;
         Vector2 direGo = Vector2.zero;
 
@@ -50,48 +67,53 @@ public class iaMove : MonoBehaviour
         }
         else
         {
-            if (rightMove)
+            if (!dontMoveHorizontal)
             {
-                if (posNow.x >= posXMax)
+                if (rightMove)
                 {
-                    moveVertical = true;
-                    posYGo = posNow.y - moveY;
-                    if (posYGo < 0f)
+                    if (posNow.x >= posXMax)
                     {
-                        posYGo = 0f;
+                        moveVertical = true;
+                        posYGo = posNow.y - moveY;
+                        if (posYGo < 0f)
+                        {
+                            posYGo = 0f;
+                        }
+                        direGo.x = 0f;
+                        direGo.y = -1f;
                     }
-                    direGo.x = 0f;
-                    direGo.y = -1f;
+                    else
+                    {
+                        direGo.x = 1f;
+                    }
                 }
                 else
                 {
-                    direGo.x = 1f;
+                    if (posNow.x <= posXMin)
+                    {
+                        moveVertical = true;
+                        posYGo -= moveY;
+                        if (posYGo < 0f)
+                        {
+                            posYGo = 0f;
+                        }
+                        direGo.x = 0f;
+                        direGo.y = -1f;
+                    }
+                    else
+                    {
+                        direGo.x = -1f;
+                    }
                 }
             }
             else
             {
-                if (posNow.x <= posXMin)
-                {
-                    moveVertical = true;
-                    posYGo -= moveY;
-                    if (posYGo < 0f)
-                    {
-                        posYGo = 0f;
-                    }
-                    direGo.x = 0f;
-                    direGo.y = -1f;
-                }
-                else
-                {
-                    direGo.x = -1f;
-                }
+                direGo = Vector2.zero;
             }
         }
 
-        float horderCount = hordersEnemies.horders.HorderNumber();
-        horderCount -= 1f;
-        float multSpd = 1f + (horderCount / (horderCount + 10f));
 
-        rigidbody.velocity = direGo*speed*multSpd;
+
+        rigidbody.velocity = direGo * speed * hordersEnemies.horders.DifcultValue() * multSpd;
     }
 }

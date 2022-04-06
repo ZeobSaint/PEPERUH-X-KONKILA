@@ -16,7 +16,19 @@ public class disableTime : MonoBehaviour
     {
         if (countTime >= lifeTime)
         {
+            makeSoundWhenDisable makeDisable =GetComponent<makeSoundWhenDisable>();
+
+            if (makeDisable)
+            {
+                makeDisable.enabled = false;
+            }
+
             gameObject.SetActive(false);
+
+            if (makeDisable)
+            {
+                makeDisable.enabled = true;
+            }
         }
         else
         {

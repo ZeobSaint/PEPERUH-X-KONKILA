@@ -12,9 +12,10 @@ public class makeSoundWhenDisable : MonoBehaviour
 
     private void OnDisable()
     {
-        if (triggerCanGo && audioSourseRepository.sourseAudioRepository)
+        if (triggerCanGo && audioSourseRepository.sourseAudioRepository && enabled)
         {
             audioSourseRepository.sourseAudioRepository.GetAudioSource().PlayOneShot(clip);
         }
+        //enabled = true;
     }
 }

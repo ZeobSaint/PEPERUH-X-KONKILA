@@ -60,24 +60,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5909260115836544110, guid: 62b6fde137236a54795ac4979f34ab74, type: 3}
-      propertyPath: m_Color.b
-      value: 0.33150437
-      objectReference: {fileID: 0}
-    - target: {fileID: 5909260115836544110, guid: 62b6fde137236a54795ac4979f34ab74, type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5909260115836544110, guid: 62b6fde137236a54795ac4979f34ab74, type: 3}
-      propertyPath: m_Color.r
-      value: 0.4716981
-      objectReference: {fileID: 0}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 615673380907259118, guid: 8a50058f7b9d8f140baca6208f4d20f5, type: 3}
     - target: {fileID: 6127047981149960394, guid: 62b6fde137236a54795ac4979f34ab74, type: 3}
       propertyPath: speed
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 7457328773354060732, guid: 62b6fde137236a54795ac4979f34ab74, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 0670eefe42fcb5745bcb6bc2c6208427, type: 2}
     - target: {fileID: 7695084251556560500, guid: 62b6fde137236a54795ac4979f34ab74, type: 3}
       propertyPath: m_Name
       value: Shoot Enemie Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 7898260818023331335, guid: 62b6fde137236a54795ac4979f34ab74, type: 3}
+      propertyPath: m_Radius
+      value: 0.45
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62b6fde137236a54795ac4979f34ab74, type: 3}

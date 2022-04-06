@@ -21,33 +21,34 @@ public class lifesScript : MonoBehaviour
 
     public void AddHp(int add)
     {
-        hpNow += add;
-        if (hpNow <= 0)
+        if (!(hordersEnemies.horders.inCutscene && add<0))
         {
-            hpNow = 0;
-            gameObject.SetActive(false);
-
-            if (!CompareTag("Player"))
+            hpNow += add;
+            if (hpNow <= 0)
             {
-                float horderCount = hordersEnemies.horders.HorderNumber();
-                horderCount -= 1f;
-                float multScore = 1f + (horderCount / (horderCount + 10f));
-                float addX = addScore * multScore;
-                scorePlayer.instance.AddScore(Mathf.CeilToInt(addX));
-            }
-            else if(gameOver)
-            {
-                gameOver.gameObject.SetActive(true);
-            }
-        }
-        else if(hpNow> hpMax)
-        {
-            hpNow=hpMax;
-        }
+                hpNow = 0;
+                gameObject.SetActive(false);
 
-        if (hpSlider)
-        {
-            hpSlider.value = ((float)hpNow) / hpMax;
+                if (!CompareTag("Player"))
+                {
+                    float multScore = hordersEnemies.horders.DifcultValue();
+                    float addX = addScore * multScore;
+                    scorePlayer.instance.AddScore(Mathf.CeilToInt(addX));
+                }
+                else if (gameOver)
+                {
+                    gameOver.gameObject.SetActive(true);
+                }
+            }
+            else if (hpNow > hpMax)
+            {
+                hpNow = hpMax;
+            }
+
+            if (hpSlider)
+            {
+                hpSlider.value = ((float)hpNow) / hpMax;
+            }
         }
     }
 }
