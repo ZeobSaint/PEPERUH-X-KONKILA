@@ -17,6 +17,6 @@ public class scorePlayer : MonoBehaviour
     public void AddScore(int add)
     {
         scoreNow += add;
-        textScore.text = "Pontos: " + scoreNow;
+        textScore.text = "Scores: " + scoreNow;
     }
 }

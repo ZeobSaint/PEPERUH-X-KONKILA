@@ -24,9 +24,9 @@ public class progetilMove : MonoBehaviour
     {
         float multSpd = hordersEnemies.horders.DifcultValue();
 
-        if(rigidbody.velocity != direGo * speed*multSpd)
+        if (rigidbody.velocity != direGo * speed * multSpd)
         {
-            rigidbody.velocity = (direGo * speed  + Vector2.right * extraForceX)* multSpd;
+            rigidbody.velocity = (direGo * speed + Vector2.right * extraForceX) * multSpd;
         }
     }
 }

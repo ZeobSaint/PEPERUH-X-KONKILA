@@ -12,6 +12,8 @@ public class iaMove : MonoBehaviour
     public bool initialRightMove = true;
     [HideInInspector]
     public bool dontMoveHorizontal = false;
+    [SerializeField]
+    private bool dontMove = false;
 
     // Start is called before the first frame update
     void Awake()
@@ -36,82 +38,85 @@ public class iaMove : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!hordersEnemies.horders.inCutscene)
-        {
-            dontMoveHorizontal = false;
-        }
-
-        Vector2 posNow = transform.position;
         Vector2 direGo = Vector2.zero;
 
-        if (moveVertical)
+        if (!dontMove)
         {
-            if (posNow.y <= posYGo)
+            if (!hordersEnemies.horders.inCutscene)
             {
-                direGo.y = 0f;
-                rightMove = !rightMove;
-                moveVertical = false;
-                if (rightMove)
-                {
-                    direGo.x = 1f;
-                }
-                else
-                {
-                    direGo.x = -1f;
-                }
+                dontMoveHorizontal = false;
             }
-            else
+
+            Vector2 posNow = transform.position;
+
+            if (moveVertical)
             {
-                direGo.y = -1f;
-            }
-        }
-        else
-        {
-            if (!dontMoveHorizontal)
-            {
-                if (rightMove)
+                if (posNow.y <= posYGo)
                 {
-                    if (posNow.x >= posXMax)
-                    {
-                        moveVertical = true;
-                        posYGo = posNow.y - moveY;
-                        if (posYGo < 0f)
-                        {
-                            posYGo = 0f;
-                        }
-                        direGo.x = 0f;
-                        direGo.y = -1f;
-                    }
-                    else
+                    direGo.y = 0f;
+                    rightMove = !rightMove;
+                    moveVertical = false;
+                    if (rightMove)
                     {
                         direGo.x = 1f;
-                    }
-                }
-                else
-                {
-                    if (posNow.x <= posXMin)
-                    {
-                        moveVertical = true;
-                        posYGo -= moveY;
-                        if (posYGo < 0f)
-                        {
-                            posYGo = 0f;
-                        }
-                        direGo.x = 0f;
-                        direGo.y = -1f;
                     }
                     else
                     {
                         direGo.x = -1f;
                     }
                 }
+                else
+                {
+                    direGo.y = -1f;
+                }
             }
             else
             {
-                direGo = Vector2.zero;
+                if (!dontMoveHorizontal)
+                {
+                    if (rightMove)
+                    {
+                        if (posNow.x >= posXMax)
+                        {
+                            moveVertical = true;
+                            posYGo = posNow.y - moveY;
+                            if (posYGo < 0f)
+                            {
+                                posYGo = 0f;
+                            }
+                            direGo.x = 0f;
+                            direGo.y = -1f;
+                        }
+                        else
+                        {
+                            direGo.x = 1f;
+                        }
+                    }
+                    else
+                    {
+                        if (posNow.x <= posXMin)
+                        {
+                            moveVertical = true;
+                            posYGo -= moveY;
+                            if (posYGo < 0f)
+                            {
+                                posYGo = 0f;
+                            }
+                            direGo.x = 0f;
+                            direGo.y = -1f;
+                        }
+                        else
+                        {
+                            direGo.x = -1f;
+                        }
+                    }
+                }
+                else
+                {
+                    direGo = Vector2.zero;
+                }
             }
         }
-
 
 
         rigidbody.velocity = direGo * speed * hordersEnemies.horders.DifcultValue() * multSpd;

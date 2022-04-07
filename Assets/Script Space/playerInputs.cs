@@ -2,13 +2,16 @@ using UnityEngine;
 
 public class playerInputs : MonoBehaviour
 {
+    public enum powerUp { rapidFire, shield, confused, notHas };
     private float speed = 12f;
     private Rigidbody2D rigidbody;
     public GameObject shootsObj;
     public Transform[] transformShootsExit;
-    private float coolodwnShoot = 0f, speedShoot = 4f;
+    private float coolodwnShoot = 0f, speedShoot = 2.5f, rapidFireDuration = 0f, shieldDuration = 0f, confusedDuration = 0f;
     private bool autoMove = true;
     private Animator animator;
+    [SerializeField]
+    private Transform transformBarrier = null;
 
     // Start is called before the first frame update
     void Awake()
@@ -23,11 +26,56 @@ public class playerInputs : MonoBehaviour
         transform.position = Vector3.down * 6f;
     }
 
+    public void SetPowerUp(powerUp power, float duration)
+    {
+        if(power == powerUp.rapidFire)
+        {
+            rapidFireDuration = duration;
+        }
+        else if(power == powerUp.shield)
+        {
+            shieldDuration = duration;
+        }
+        else if(power == powerUp.confused)
+        {
+            confusedDuration = duration;
+        }
+    }
+
     private void FixedUpdate()
     {
         if (coolodwnShoot > 0f)
         {
             coolodwnShoot -= Time.fixedDeltaTime * speedShoot;
+        }
+
+        if (confusedDuration > 0f)
+        {
+            confusedDuration -= Time.fixedDeltaTime;
+        }
+
+        if (rapidFireDuration > 0f)
+        {
+            rapidFireDuration -= Time.fixedDeltaTime;
+        }
+
+        if(shieldDuration > 0f)
+        {
+            shieldDuration -= Time.fixedDeltaTime;
+        }
+
+        if (shieldDuration > 0f)
+        {
+            if (!transformBarrier.gameObject.activeInHierarchy)
+            {
+                transformBarrier.gameObject.SetActive(true);
+            }
+
+            transformBarrier.localPosition = Vector3.up * 1.5f;
+        }
+        else if(transformBarrier.gameObject.activeInHierarchy)
+        {
+            transformBarrier.gameObject.SetActive(false);
         }
     }
 
@@ -50,9 +98,18 @@ public class playerInputs : MonoBehaviour
         {
             float mvX = Input.GetAxisRaw("Horizontal");
 
+            if(confusedDuration > 0f)
+            {
+                mvX *= -1f;
+            }
+
             rigidbody.velocity = Vector2.right * mvX * speed;
 
-            if (Input.GetButtonDown("Shoot"))
+            if (rapidFireDuration > 0f)
+            {
+                Shoot();
+            }
+            else if (Input.GetButtonDown("Shoot"))
             {
                 Shoot();
             }
@@ -87,8 +144,9 @@ public class playerInputs : MonoBehaviour
         }
     }
 
-        public void Shoot()
+    public void Shoot()
     {
+        //Debug.Log(1);
         if (coolodwnShoot <= 0f && !hordersEnemies.horders.inCutscene)
         {
             GameObject obj = repository.repositoryInScene.GetObject(shootsObj);
@@ -98,7 +156,15 @@ public class playerInputs : MonoBehaviour
             progetilMove progetil = obj.GetComponent<progetilMove>();
             //progetil.extraForceX = rigidbody.velocity.x / 2f;
             progetil.SetDire(Vector2.up);
-            coolodwnShoot = 1f;
+            if (rapidFireDuration > 0f)
+            {
+                coolodwnShoot = 0.5f;
+            }
+            else
+            {
+                coolodwnShoot = 1f;
+            }
+            //Debug.Log(coolodwnShoot);
         }
     }
 }

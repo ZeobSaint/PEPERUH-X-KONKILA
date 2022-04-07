@@ -7,6 +7,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4104333131760161999, guid: 3435bfaf5ac50794c824a4ab82fadfef, type: 3}
+      propertyPath: m_Size.x
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104333131760161999, guid: 3435bfaf5ac50794c824a4ab82fadfef, type: 3}
+      propertyPath: m_Size.y
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4104333131821119624, guid: 3435bfaf5ac50794c824a4ab82fadfef, type: 3}
+      propertyPath: m_Offset.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4104333131821119624, guid: 3435bfaf5ac50794c824a4ab82fadfef, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
       value: 1.4
@@ -53,10 +65,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4104333131821119625, guid: 3435bfaf5ac50794c824a4ab82fadfef, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4104333131821119628, guid: 3435bfaf5ac50794c824a4ab82fadfef, type: 3}
-      propertyPath: initialRightMove
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4104333131821119629, guid: 3435bfaf5ac50794c824a4ab82fadfef, type: 3}

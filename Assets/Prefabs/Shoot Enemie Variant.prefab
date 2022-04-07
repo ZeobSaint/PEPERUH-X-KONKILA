@@ -15,6 +15,10 @@ PrefabInstance:
       propertyPath: lifeTime
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 799595564186877447, guid: 62b6fde137236a54795ac4979f34ab74, type: 3}
+      propertyPath: hitResapw
+      value: 
+      objectReference: {fileID: 7383027895136985874, guid: 11609b68ac3414f40af771f8615102d2, type: 3}
     - target: {fileID: 3999896924231625545, guid: 62b6fde137236a54795ac4979f34ab74, type: 3}
       propertyPath: m_RootOrder
       value: 0

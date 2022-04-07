@@ -4,7 +4,7 @@ public class shootIA : MonoBehaviour
 {
     private static int iAShootControll = 0;
     private static bool shootsCountTrigger = false;
-    private static float cooldownShoot = 0f;
+    protected static float cooldownShoot = 0f;
     public LayerMask layerObst;
     public GameObject shootObj;
     private float timeShoot = 0f;
@@ -12,9 +12,12 @@ public class shootIA : MonoBehaviour
     public float ofterShoot = 1f;
     public Transform[] transformShootsExit;
     private float shootTime;
+    [Range(0f, 1f)]
+    public float forceXShoot = 0.5f;
+    public bool cantAction = false;
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         repository.repositoryInScene.AddObject(shootObj, 32);
         //shootTime = 0.5f + Random.value;
@@ -28,25 +31,28 @@ public class shootIA : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!hordersEnemies.horders.inCutscene)
+        if (!cantAction)
         {
-            if (cooldownShoot > 0f && !shootsCountTrigger)
+            if (!hordersEnemies.horders.inCutscene)
             {
-                cooldownShoot -= Time.fixedDeltaTime;
-                shootsCountTrigger = true;
-            }
+                if (cooldownShoot > 0f && !shootsCountTrigger)
+                {
+                    cooldownShoot -= Time.fixedDeltaTime * hordersEnemies.horders.DifcultValue();
+                    shootsCountTrigger = true;
+                }
 
-            if (timeShoot >= shootTime)
-            {
-                Shoot();
-                timeShoot = 0f;
-                shootTime = 0.5f + Random.value;
-            }
-            else
-            {
-                float multSpd = hordersEnemies.horders.DifcultValue();
+                if (timeShoot >= shootTime)
+                {
+                    Shoot();
+                    timeShoot = 0f;
+                    shootTime = 0.5f + Random.value;
+                }
+                else
+                {
+                    float multSpd = hordersEnemies.horders.DifcultValue();
 
-                timeShoot += Time.fixedDeltaTime * ofterShoot * multSpd;
+                    timeShoot += Time.fixedDeltaTime * ofterShoot * multSpd;
+                }
             }
         }
     }
@@ -56,7 +62,7 @@ public class shootIA : MonoBehaviour
         shootsCountTrigger = false;
     }
 
-    public void Shoot()
+    public virtual void Shoot()
     {
         if (cooldownShoot <= 0f)
         {
@@ -81,18 +87,21 @@ public class shootIA : MonoBehaviour
 
             if (!hit2D.collider)
             {
-                GameObject obj = repository.repositoryInScene.GetObject(shootObj);
-                obj.SetActive(true);
-                obj.tag = tag;
-                obj.transform.position = transformShootsExit[0].position;
-                progetilMove progetil = obj.GetComponent<progetilMove>();
-                progetil.extraForceX = GetComponent<Rigidbody2D>().velocity.x / 2f;
-                progetil.SetDire(Vector2.down);
-                iAShootControll += 1;
-                if (iAShootControll >= numbersShootMax)
+                for (int i = 0; i < transformShootsExit.Length; i++)
                 {
-                    cooldownShoot = 3f;
-                    iAShootControll = 0;
+                    GameObject obj = repository.repositoryInScene.GetObject(shootObj);
+                    obj.SetActive(true);
+                    obj.tag = tag;
+                    obj.transform.position = transformShootsExit[i].position;
+                    progetilMove progetil = obj.GetComponent<progetilMove>();
+                    progetil.extraForceX = GetComponent<Rigidbody2D>().velocity.x * forceXShoot;
+                    progetil.SetDire(Vector2.down);
+                    iAShootControll += 1;
+                    if (iAShootControll >= numbersShootMax)
+                    {
+                        cooldownShoot = 3f;
+                        iAShootControll = 0;
+                    }
                 }
             }
         }

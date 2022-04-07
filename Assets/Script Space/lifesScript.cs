@@ -8,7 +8,20 @@ public class lifesScript : MonoBehaviour
     private int hpNow;
     public Slider hpSlider;
     public float addScore = 10f;
-    public gameOverScreem gameOver;
+    public GameObject objResapwInDead, dropItem;
+
+    private void Start()
+    {
+        if (objResapwInDead)
+        {
+            repository.repositoryInScene.AddObject(objResapwInDead, 32);
+        }
+
+        if (dropItem)
+        {
+            repository.repositoryInScene.AddObject(dropItem, 4);
+        }
+    }
 
     private void OnEnable()
     {
@@ -29,15 +42,25 @@ public class lifesScript : MonoBehaviour
                 hpNow = 0;
                 gameObject.SetActive(false);
 
+                if (objResapwInDead)
+                {
+                    GameObject objRespaw = repository.repositoryInScene.GetObject(objResapwInDead);
+                    objRespaw.SetActive(true);
+                    objRespaw.transform.position = transform.position;
+                }
+
+                if (dropItem && 1f / 8f > Random.value)
+                {
+                    GameObject objRespaw = repository.repositoryInScene.GetObject(dropItem);
+                    objRespaw.SetActive(true);
+                    objRespaw.transform.position = transform.position;
+                }
+
                 if (!CompareTag("Player"))
                 {
                     float multScore = hordersEnemies.horders.DifcultValue();
                     float addX = addScore * multScore;
                     scorePlayer.instance.AddScore(Mathf.CeilToInt(addX));
-                }
-                else if (gameOver)
-                {
-                    gameOver.gameObject.SetActive(true);
                 }
             }
             else if (hpNow > hpMax)

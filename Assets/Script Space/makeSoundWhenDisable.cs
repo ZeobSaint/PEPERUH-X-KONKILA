@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class makeSoundWhenDisable : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class makeSoundWhenDisable : MonoBehaviour
 
     private void OnDisable()
     {
-        if (triggerCanGo && audioSourseRepository.sourseAudioRepository && enabled)
+        if (triggerCanGo && SceneManager.sceneCount == 1 && audioSourseRepository.sourseAudioRepository && enabled)
         {
             audioSourseRepository.sourseAudioRepository.GetAudioSource().PlayOneShot(clip);
         }

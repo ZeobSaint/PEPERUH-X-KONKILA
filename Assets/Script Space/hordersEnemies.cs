@@ -1,18 +1,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class hordersEnemies : MonoBehaviour
 {
     public static hordersEnemies horders = null;
     [HideInInspector]
     public bool inCutscene = false;
-    public List<iaMove> enemiesList = new List<iaMove>();
-    private Vector3[] listPos;
+    public Transform transformHorder1, transformHorder2, transformHorder3;
+    private iaMove[] enemiesArray1, enemiesArray2, enemiesArray3;
+    private List<iaMove> enemiesInHorderNow = new List<iaMove>();
     public Text textHorder;
     private int countHorder = 0;
     private float respawCooldown = 0f;
     private bool trigger = false;
+    public iaMove bossMv;
+    public GameObject bossLife;
+    public lifesScript player;
+    private float countTimePlayerDead = 0f;
 
     // Start is called before the first frame update
     void Awake()
@@ -20,82 +26,121 @@ public class hordersEnemies : MonoBehaviour
         Time.timeScale = 1f;
 
         horders = this;
-        listPos = new Vector3[enemiesList.Count];
-        for (int i = 0; i < enemiesList.Count; i++)
+
+        enemiesArray1 = transformHorder1.GetComponentsInChildren<iaMove>();
+        enemiesArray2 = transformHorder2.GetComponentsInChildren<iaMove>();
+        enemiesArray3 = transformHorder3.GetComponentsInChildren<iaMove>();
+
+        bossMv.gameObject.SetActive(false);
+
+        for (int i = 0; i < enemiesArray1.Length; i++)
         {
-            listPos[i] = enemiesList[i].transform.position;
-            enemiesList[i].gameObject.SetActive(false);
+            enemiesArray1[i].gameObject.SetActive(false);
+            enemiesArray2[i].gameObject.SetActive(false);
+            enemiesArray3[i].gameObject.SetActive(false);
         }
     }
 
     private void AttHorder()
     {
-        textHorder.text = "Horda " + countHorder;
+        textHorder.text = "Horde " + countHorder;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (!enemiesList.Exists(x => x.gameObject.activeInHierarchy))
+        if (player.gameObject.activeInHierarchy)
         {
-            if (respawCooldown > 3f)
+            if (countHorder < 5)
             {
-                countHorder += 1;
-
-                if (countHorder > 4)
+                if (!enemiesInHorderNow.Exists(x => x.gameObject.activeInHierarchy))
                 {
-                    countHorder = 4;
-                }
-
-                if (countHorder > 1)
-                {
-                    float horderCount = hordersEnemies.horders.HorderNumber();
-                    horderCount -= 2f;
-                    float multScore = DifcultValue();
-                    float addX = 130f * multScore;
-                    scorePlayer.instance.AddScore((int)addX);
-                }
-
-                respawCooldown = 0f;
-                AttHorder();
-
-                iaMove.multSpd = 3f;
-                inCutscene = true;
-                trigger = true;
-
-                for (int i = 0; i < enemiesList.Count; i++)
-                {
-                    if (countHorder == 2)
+                    if (respawCooldown > 3f)
                     {
-                        enemiesList[i].GetComponent<lifesScript>().hpMax += 1;
-                    }
-                    else if(countHorder == 3)
-                    {
-                        enemiesList[i].GetComponent<lifesScript>().hpMax += 2;
-                    }
+                        countHorder += 1;
+                        if (countHorder < 5)
+                        {
+                            if (countHorder > 1)
+                            {
+                                float horderCount = hordersEnemies.horders.HorderNumber();
+                                horderCount -= 2f;
+                                float multScore = DifcultValue();
+                                float addX = 130f * multScore;
+                                scorePlayer.instance.AddScore((int)addX);
+                                player.AddHp(1);
+                            }
 
-                    enemiesList[i].transform.position = listPos[i];
-                    enemiesList[i].gameObject.SetActive(true);
+                            enemiesInHorderNow.Clear();
+
+                            iaMove[] iaMovesArray = enemiesArray1;
+
+                            if (countHorder == 2)
+                            {
+                                iaMovesArray = enemiesArray2;
+                            }
+                            else if (countHorder == 3)
+                            {
+                                iaMovesArray = enemiesArray3;
+                            }
+                            else if (countHorder == 4)
+                            {
+                                iaMovesArray = new iaMove[1];
+                                iaMovesArray[0] = bossMv;
+                                bossLife.SetActive(true);
+                            }
+
+
+                            for (int i = 0; i < iaMovesArray.Length; i++)
+                            {
+                                iaMovesArray[i].gameObject.SetActive(true);
+                                enemiesInHorderNow.Add(iaMovesArray[i]);
+                            }
+
+                            respawCooldown = 0f;
+                            AttHorder();
+
+                            iaMove.multSpd = 3f;
+                            inCutscene = true;
+                            trigger = true;
+                        }
+                        else
+                        {
+                            bossLife.SetActive(false);
+                            SceneManager.LoadSceneAsync("Victory Scene");
+                        }
+                    }
+                    else
+                    {
+                        respawCooldown += Time.fixedDeltaTime;
+                    }
                 }
-            }
-            else
-            {
-                respawCooldown += Time.fixedDeltaTime;
+                else
+                {
+                    if (trigger)
+                    {
+                        trigger = false;
+                    }
+                    else if (inCutscene)
+                    {
+                        if (!enemiesInHorderNow.Exists(x => !x.IsStoped()))
+                        {
+                            inCutscene = false;
+                            iaMove.multSpd = 1f;
+                        }
+                    }
+                }
             }
         }
         else
         {
-            if (trigger)
+            if (countTimePlayerDead < 3f)
             {
-                trigger = false;
+                countTimePlayerDead += Time.deltaTime;
             }
-            else if (inCutscene)
+            else
             {
-                if (!enemiesList.Exists(x => !x.IsStoped()))
-                {
-                    inCutscene = false;
-                    iaMove.multSpd = 1f;
-                }
+                SceneManager.LoadSceneAsync("Game Over Scene");
+                enabled = false;
             }
         }
     }
@@ -125,5 +170,10 @@ public class hordersEnemies : MonoBehaviour
         }
 
         return 1f;
+    }
+
+    private void OnDestroy()
+    {
+        horders = null;
     }
 }

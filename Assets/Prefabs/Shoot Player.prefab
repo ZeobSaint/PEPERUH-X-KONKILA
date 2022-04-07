@@ -142,6 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyerAfterImpact: 1
   damage: 1
+  hitResapw: {fileID: 3780071582717552167, guid: 763f72b0580a7834d8fa5ff220ea2d66, type: 3}
 --- !u!114 &6127047981149960394
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -3,7 +3,7 @@ using UnityEngine;
 public class backgroundMove : MonoBehaviour
 {
     public Vector3 posVI, posVF;
-    private float speed = 5f;
+    public float speed = 5f;
     private float countTime = 0f;
 
     // Start is called before the first frame update
@@ -17,7 +17,13 @@ public class backgroundMove : MonoBehaviour
     {
         transform.localPosition = Vector3.Lerp(posVI, posVF, countTime);
         float dist = Vector3.Distance(posVI, posVF);
-        float df = hordersEnemies.horders.DifcultValue();
+        float df = 1f;
+
+        if (hordersEnemies.horders)
+        {
+            df = hordersEnemies.horders.DifcultValue();
+        }
+
         countTime += Time.deltaTime * speed * df / dist;
         if (countTime >= 1f)
         {
