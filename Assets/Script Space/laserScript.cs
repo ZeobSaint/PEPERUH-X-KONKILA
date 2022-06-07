@@ -9,6 +9,7 @@ public class laserScript : MonoBehaviour
     private bool disable = false;
     private SpriteRenderer sprRenderer;
     private BoxCollider2D coll2D;
+    public AudioClip clipInitial;
 
     // Start is called before the first frame update
     void Awake()
@@ -43,6 +44,11 @@ public class laserScript : MonoBehaviour
         }
         else
         {
+            if(countTime==0f && !disable && clipInitial)
+            {
+                audioSourseRepository.sourseAudioRepository.GetAudioSource().PlayOneShot(clipInitial);
+            }
+
             countTime += Time.fixedDeltaTime / timeMaxSize;
             if (disable)
             {

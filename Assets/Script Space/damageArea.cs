@@ -5,6 +5,7 @@ public class damageArea : MonoBehaviour
     public bool destroyerAfterImpact = true;
     public int damage = 1;
     public GameObject hitResapw;
+    public AudioClip clipHit, clipHitBarrier;
 
     private void Start()
     {
@@ -39,6 +40,14 @@ public class damageArea : MonoBehaviour
             gameObject.SetActive(false);
             if (hitResapw)
             {
+                if(!CompareTag(collision.tag) && !lifes && clipHitBarrier)
+                {
+                    audioSourseRepository.sourseAudioRepository.GetAudioSource().PlayOneShot(clipHitBarrier);
+                }
+                else if (clipHit)
+                {
+                    audioSourseRepository.sourseAudioRepository.GetAudioSource().PlayOneShot(clipHit);
+                }
                 GameObject objX = repository.repositoryInScene.GetObject(hitResapw);
                 objX.SetActive(true);
                 Vector3 pos = (collision.bounds.center + GetComponent<Collider2D>().bounds.center) / 2f;

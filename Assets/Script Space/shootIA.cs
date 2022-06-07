@@ -66,7 +66,7 @@ public class shootIA : MonoBehaviour
     {
         if (cooldownShoot <= 0f)
         {
-            int numbersShootMax = 3;
+            int numbersShootMax = 2;
             int horderCount = hordersEnemies.horders.HorderNumber();
 
             if (horderCount >= 10)
@@ -99,7 +99,7 @@ public class shootIA : MonoBehaviour
                     iAShootControll += 1;
                     if (iAShootControll >= numbersShootMax)
                     {
-                        cooldownShoot = 3f;
+                        cooldownShoot = Random.Range(0.5f, 1.5f) * 6f;
                         iAShootControll = 0;
                     }
                 }

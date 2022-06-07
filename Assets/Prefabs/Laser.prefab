@@ -99,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sizefinal: {x: 1, y: 16}
   timeMaxSize: 1
+  clipInitial: {fileID: 8300000, guid: 3a70b0c0b5774e644bbfe4263e80b77b, type: 3}
 --- !u!61 &644060873269460301
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -139,3 +140,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyerAfterImpact: 0
   damage: 10
+  hitResapw: {fileID: 0}
+  clipHit: {fileID: 0}
+  clipHitBarrier: {fileID: 0}

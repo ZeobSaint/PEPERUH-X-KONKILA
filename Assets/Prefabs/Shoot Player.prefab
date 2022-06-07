@@ -143,6 +143,8 @@ MonoBehaviour:
   destroyerAfterImpact: 1
   damage: 1
   hitResapw: {fileID: 3780071582717552167, guid: 763f72b0580a7834d8fa5ff220ea2d66, type: 3}
+  clipHit: {fileID: 8300000, guid: 0cde3c580a42162448fa579e795f72e0, type: 3}
+  clipHitBarrier: {fileID: 8300000, guid: dce57a39defb25847b9d0ee6896b6fa7, type: 3}
 --- !u!114 &6127047981149960394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,7 +182,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d1f45036f3c47ca44a67edf052dd7c50, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 2aa59f75241d53d45a234d0f4316ef29, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -292,7 +294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbf09db1ab55ee741a13f0dd01d09b35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: df5bc616d5ee1b7409fe5d36da0eb4fa, type: 3}
+  clip: {fileID: 0}
 --- !u!95 &7457328773354060732
 Animator:
   serializedVersion: 3

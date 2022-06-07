@@ -8,18 +8,15 @@ public class lifesScript : MonoBehaviour
     private int hpNow;
     public Slider hpSlider;
     public float addScore = 10f;
-    public GameObject objResapwInDead, dropItem;
+    public GameObject objResapwInDead;
+    public Sprite[] spritesLife;
+    public Image lifePlayer;
 
     private void Start()
     {
         if (objResapwInDead)
         {
             repository.repositoryInScene.AddObject(objResapwInDead, 32);
-        }
-
-        if (dropItem)
-        {
-            repository.repositoryInScene.AddObject(dropItem, 4);
         }
     }
 
@@ -49,12 +46,12 @@ public class lifesScript : MonoBehaviour
                     objRespaw.transform.position = transform.position;
                 }
 
-                if (dropItem && 1f / 8f > Random.value)
+                /*if (dropItem && 1f / 5f > Random.value)
                 {
                     GameObject objRespaw = repository.repositoryInScene.GetObject(dropItem);
                     objRespaw.SetActive(true);
                     objRespaw.transform.position = transform.position;
-                }
+                }*/
 
                 if (!CompareTag("Player"))
                 {
@@ -71,6 +68,10 @@ public class lifesScript : MonoBehaviour
             if (hpSlider)
             {
                 hpSlider.value = ((float)hpNow) / hpMax;
+            }
+            else if (lifePlayer)
+            {
+                lifePlayer.sprite = spritesLife[hpNow];
             }
         }
     }

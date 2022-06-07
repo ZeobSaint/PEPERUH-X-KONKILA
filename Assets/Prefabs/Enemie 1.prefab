@@ -103,6 +103,8 @@ MonoBehaviour:
   destroyerAfterImpact: 0
   damage: 10
   hitResapw: {fileID: 0}
+  clipHit: {fileID: 0}
+  clipHitBarrier: {fileID: 0}
 --- !u!1 &4104333131821119638
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,7 +212,8 @@ MonoBehaviour:
   hpSlider: {fileID: 0}
   addScore: 10
   objResapwInDead: {fileID: 1262852628107082297, guid: 04320904cb227474289133d11c282775, type: 3}
-  dropItem: {fileID: 1932426400480311909, guid: c79155e1b1b897248a0b2804b07294a8, type: 3}
+  spritesLife: []
+  lifePlayer: {fileID: 0}
 --- !u!50 &4104333131821119627
 Rigidbody2D:
   serializedVersion: 4
@@ -308,7 +311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbf09db1ab55ee741a13f0dd01d09b35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: 86c986b1d7b0e2d40a2eada01b9bec03, type: 3}
+  clip: {fileID: 0}
 --- !u!95 &6993848972314732064
 Animator:
   serializedVersion: 3

@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 1932426400480311912}
   - component: {fileID: 1932426400480311915}
   - component: {fileID: 1932426400480311914}
-  - component: {fileID: 1932426400480311918}
   - component: {fileID: 6856475194276369193}
+  - component: {fileID: -5871420078412997325}
   m_Layer: 10
   m_Name: Power Up
   m_TagString: Player
@@ -133,18 +133,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &1932426400480311918
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1932426400480311909}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21b230ebf2aaf29499ff5332141404c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6856475194276369193
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,5 +143,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fa833a62d674412489dca033d7e6f158, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clipGet: {fileID: 8300000, guid: 89daa76498deca0408b5f46d37be2cc3, type: 3}
+--- !u!114 &-5871420078412997325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932426400480311909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efb95d54a0be7b24a945f39f7992a9b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

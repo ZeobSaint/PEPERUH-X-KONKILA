@@ -415,7 +415,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeWait: 3
-  scneneName: Initial Screem Scene
+  scneneName: Logo Studio Scene
 --- !u!1001 &1897250349
 PrefabInstance:
   m_ObjectHideFlags: 0

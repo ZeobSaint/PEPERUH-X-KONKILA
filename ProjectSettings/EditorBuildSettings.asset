@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Logo Studio Scene.unity
+    guid: 650f4e122261c9e43b61ac1cb4f263ee
+  - enabled: 1
     path: Assets/Scenes/Initial Screem Scene.unity
     guid: 505361559a47f41439153b2a126a1e13
   - enabled: 1

@@ -67,6 +67,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 484849231724312636, guid: 3435bfaf5ac50794c824a4ab82fadfef, type: 3}
+      propertyPath: clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 732387f37b809d24ba78eb3898963720, type: 3}
     - target: {fileID: 4104333131070780960, guid: 3435bfaf5ac50794c824a4ab82fadfef, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.7
@@ -149,7 +153,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4104333131821119626, guid: 3435bfaf5ac50794c824a4ab82fadfef, type: 3}
       propertyPath: hpMax
-      value: 60
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4104333131821119626, guid: 3435bfaf5ac50794c824a4ab82fadfef, type: 3}
       propertyPath: addScore

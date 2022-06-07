@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class powerUpObt : MonoBehaviour
 {
+    public AudioClip clipGet;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         playerInputs player = collision.GetComponentInParent<playerInputs>();
@@ -28,6 +30,11 @@ public class powerUpObt : MonoBehaviour
             player.SetPowerUp(power, duration);
 
             gameObject.SetActive(false);
+
+            if (clipGet)
+            {
+                audioSourseRepository.sourseAudioRepository.GetAudioSource().PlayOneShot(clipGet);
+            }
         }
     }
 }

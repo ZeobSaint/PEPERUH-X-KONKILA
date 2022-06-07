@@ -55,10 +55,10 @@ public class hordersEnemies : MonoBehaviour
             {
                 if (!enemiesInHorderNow.Exists(x => x.gameObject.activeInHierarchy))
                 {
-                    if (respawCooldown > 3f)
+                    if (respawCooldown > 1f)
                     {
                         countHorder += 1;
-                        if (countHorder < 5)
+                        if (countHorder <= 4)
                         {
                             if (countHorder > 1)
                             {
@@ -67,7 +67,7 @@ public class hordersEnemies : MonoBehaviour
                                 float multScore = DifcultValue();
                                 float addX = 130f * multScore;
                                 scorePlayer.instance.AddScore((int)addX);
-                                player.AddHp(1);
+                                player.AddHp(5);
                             }
 
                             enemiesInHorderNow.Clear();
@@ -111,7 +111,14 @@ public class hordersEnemies : MonoBehaviour
                     }
                     else
                     {
-                        respawCooldown += Time.fixedDeltaTime;
+                        if (countHorder == 4)
+                        {
+                            respawCooldown += Time.fixedDeltaTime / 5f;
+                        }
+                        else
+                        {
+                            respawCooldown += Time.fixedDeltaTime/ 3f;
+                        }
                     }
                 }
                 else
@@ -133,7 +140,7 @@ public class hordersEnemies : MonoBehaviour
         }
         else
         {
-            if (countTimePlayerDead < 3f)
+            if (countTimePlayerDead < 5f)
             {
                 countTimePlayerDead += Time.deltaTime;
             }
