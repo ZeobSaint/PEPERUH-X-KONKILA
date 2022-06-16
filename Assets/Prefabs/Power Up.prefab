@@ -146,6 +146,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clipGet: {fileID: 8300000, guid: 89daa76498deca0408b5f46d37be2cc3, type: 3}
+  spritePowers:
+  - {fileID: 5875395181630150645, guid: 8a50058f7b9d8f140baca6208f4d20f5, type: 3}
+  - {fileID: 5023289697677887148, guid: 8a50058f7b9d8f140baca6208f4d20f5, type: 3}
+  - {fileID: 1511843784806208459, guid: 8a50058f7b9d8f140baca6208f4d20f5, type: 3}
 --- !u!114 &-5871420078412997325
 MonoBehaviour:
   m_ObjectHideFlags: 0
